@@ -2,6 +2,13 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://eunchong:asd5102@atlascluster.raf1oni.mongodb.net/?retryWrites=true&w=majority', {
+  useUnifiedTopology: true,
+}).then(() => console.log('MonogeDB Conneted...'))
+  .catch(err => console.log(err));
+
 app.listen(8080, function(){
   console.log('listening on 8080');
 });
