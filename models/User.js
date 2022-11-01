@@ -56,23 +56,35 @@ userSchema.pre("save", function (next) {
 });
 
 //비밀번호 일치 검사
-userSchema.methods.comparePassword = function (plainPassword, callback) {
+userSchema.methods.comparePassword = function (plainPassword, cb) {
   bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
-    if (err) return callback(err);
-    callback(null, isMatch);
+    if (err) return cb(err);
+    cb(null, isMatch);
   });
 };
 
 //유저 토큰 생성
-userSchema.methods.generateToken = function (callback) {
+userSchema.methods.generateToken = function (cb) {
   var user = this;
   //jsonwebtoken을 이용해 토큰 생성 및 저장.
   var token = jwt.sign(user._id.toHexString(), "anything");
   user.token = token;
 
   user.save(function (err, user) {
-    if (err) return callback(err);
-    callback(null, user);
+    if (err) return cb(err);
+    cb(null, user);
+  });
+};
+
+//유저 auth체크를 위해, 토큰 복호화후 유저 찾기.
+userSchema.statics.findByToken = function (token, cb) {
+  var user = this;
+
+  jwt.verify(token, "anything", function (err, decoded) {
+    user.findOne({ _id: decoded, token: token }, function (err, user) {
+      if (err) return cb(err);
+      return cb(null, user);
+    });
   });
 };
 

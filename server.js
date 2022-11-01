@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 //obj in file
 const config = require("./config/key");
 const { User } = require("./models/User");
+const { auth } = require("./middleware/auth");
 
 //mongoose 생성 및 연결
 mongoose
@@ -37,7 +38,7 @@ app.get("/", function (req, res) {
 });
 
 //회원가입 기능
-app.post("/register", function (req, res) {
+app.post("/api/users/register", function (req, res) {
   const user = new User(req.body);
 
   //user.schema.pre()이용해서 save하기 전에 비밀번호 암호화하기.
@@ -52,7 +53,7 @@ app.post("/register", function (req, res) {
 });
 
 //로그인 기능
-app.post("/login", function (req, res) {
+app.post("/api/users/login", function (req, res) {
   //1. 입력된 이메일이 db에 있는지 확인한다.
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
@@ -67,9 +68,9 @@ app.post("/login", function (req, res) {
     //2. 이메일에 해당하는 패드워드가 일치하는지 확인한다.
     console.log(req.body.password);
     user.comparePassword(req.body.password, (err, isMatch) => {
-      console.log("comparePassword 안.");
-      console.log(err);
-      console.log(isMatch);
+      // console.log("comparePassword 안.");
+      // console.log(err);
+      // console.log(isMatch);
       if (err) return res.status(400).send(err);
       if (!isMatch) {
         console.log("ismatch 실패");
@@ -93,6 +94,20 @@ app.post("/login", function (req, res) {
         console.log(req.body);
       });
     });
+  });
+});
+
+app.get("/api/users/auth", auth, (req, res) => {
+  //여기까지 미들웨어를 통과해 왔다는 것은 authentication을 통과했다는 것.
+  res.status(200).json({
+    _id: req.user._id,
+    isAmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image,
   });
 });
 
