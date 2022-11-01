@@ -111,6 +111,14 @@ app.get("/api/users/auth", auth, (req, res) => {
   });
 });
 
+app.get("/api/users/logout", auth, (req, res) => {
+  console.log("here is logout");
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({ success: true });
+  });
+});
+
 //경로가 서버에 개발되어있지 않은 경우 index.html로 라우팅.
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "front/build/index.html"));
