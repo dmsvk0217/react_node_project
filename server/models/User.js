@@ -39,6 +39,9 @@ const userSchema = mongoose.Schema({
 userSchema.pre("save", function (next) {
   var user = this;
 
+  //console.log("save하기전 userSchema.pre()의 this : ", this);
+  // userSchema is -> user객체
+
   if (user.isModified("password")) {
     //비밀번호 암호화 with bcrypt
     bcrypt.genSalt(saltRounds, function (err, salt) {
