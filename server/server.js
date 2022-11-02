@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const port = 7777;
 
 //lib
 const bodyParser = require("body-parser");
@@ -22,8 +23,8 @@ mongoose
   .catch((err) => console.log(err));
 
 //서버 시작
-app.listen(8888, function () {
-  console.log("listening on 8888");
+app.listen(port, function () {
+  console.log(`listening on ${port}`);
 });
 
 app.use(express.json());
@@ -124,6 +125,10 @@ app.get("/api/users/logout", auth, (req, res) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({ success: true });
   });
+});
+
+app.get("/api/hello", (req, res) => {
+  res.send("안녕하세요~~");
 });
 
 //경로가 서버에 개발되어있지 않은 경우 index.html로 라우팅.
