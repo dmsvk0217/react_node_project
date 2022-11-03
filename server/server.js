@@ -118,8 +118,8 @@ app.get("/api/users/auth", auth, (req, res) => {
   });
 });
 
-app.get("/api/users/logout", auth, (req, res) => {
-  console.log("here is logout");
+// Q : 클라이언트로 넘어간 JSON형태의 데이터는 어디에 저장되길래 req에 user id가 포함되어있나?
+app.post("/api/users/logout", auth, (req, res) => {
   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({ success: true });

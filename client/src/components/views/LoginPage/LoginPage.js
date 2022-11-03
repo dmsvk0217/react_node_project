@@ -28,9 +28,9 @@ function LoginPage(props) {
     };
 
     dispatch(loginUser(body)).then((response) => {
+      console.log(response.payload);
       if (response.payload.loginSuccess) {
         navigate("/", { replace: true });
-        //props.history.push("/");
       } else {
         alert("error");
       }
