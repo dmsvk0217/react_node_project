@@ -51,7 +51,6 @@ app.post("/api/users/register", function (req, res) {
     else
       return res.status(200).json({
         success: true,
-        userInfo,
       });
   });
 });
