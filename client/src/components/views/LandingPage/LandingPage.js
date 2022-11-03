@@ -5,10 +5,6 @@ import axios from "axios";
 function LandingPage() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get("/api/hello").then((res) => console.log(res));
-  }, []);
-
   const onClickHandler = () => {
     axios.post("/api/users/logout").then((response) => {
       if (response.data) {
