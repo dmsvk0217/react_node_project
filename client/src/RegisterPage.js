@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-function LoginPage() {
+function Register() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alramText, setalramText] = useState("");
 
+  const nameHandler = function (event) {
+    setName(event.target.value);
+  };
   const emailHandler = function (event) {
     setEmail(event.target.value);
   };
@@ -15,27 +19,29 @@ function LoginPage() {
     setPassword(event.target.value);
   };
 
-  const loginHandler = function () {
-    //axios로 서버에게 login요청하기
-    axios
-      .post("http://localhost:7777/api/login", {
+  const registerHandler = function () {
+    /*
+    axios로 서버에게 register요청하기
+    */
+    axios // proxy 경로 적용이 왜 안되는지 모르겠음........ 적용이 안됐는데 왜 cors오류는 발생안하는지도 모르겠음......
+      .post("http://localhost:7777/api/register", {
+        name: name,
         email: email,
         password: password,
       })
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        if (res.data.loginSuccess) {
-          //성공적으로 로그인 된경우 -> 랜딩 페이지로 라우팅
-          navigate("/main", { replace: false });
-        } else if (res.data.worngPassword) {
-          //존재하지 않는 이메일인 경우 -> ajax 경고 "이메일에 해당하는 계정이 존재하지 않습니다."
-          setalramText("비밀번호가 틀렸습니다.");
-        } else if (res.data.notExistEmail) {
-          //이메일은 맞지만 비밀번호가 틀린경우 -> ajax 경고 "비밀번호가 틀렸습니다."
-          setalramText("이메일에 해당하는 계정이 존재하지 않습니다.");
+        if (res.data.registerSuccess) {
+          // 회원가입성공 -> navigate를 사용하여 로그인 페이지로 라우팅
+          console.log("[register] 회원가입 성공입니다.");
+          navigate("/login", { replace: true });
+        } else if (res.data.existUser) {
+          // 이미존재하는 -> ajax 경고 "이메일에 해당하는 계정이 이미 존재합니다."
+          setalramText("이메일에 해당하는 계정이 이미 존재합니다");
         } else {
-          setalramText("[로그인] 이건 무슨 상황인가여..");
+          // other cases
+          setalramText("무슨 케이스지?");
         }
       })
       .catch((err) => {
@@ -54,8 +60,12 @@ function LoginPage() {
         height: "100vh",
       }}
     >
-      <h1>로그인 페이지</h1>
+      <h1>회원가입 페이지</h1>
       <h1>{alramText}</h1>
+      <div>
+        이름
+        <input type="text" value={name} name="name" onChange={nameHandler} />
+      </div>
       <div>
         이메일
         <input type="text" value={email} name="email" onChange={emailHandler} />
@@ -69,15 +79,15 @@ function LoginPage() {
           onChange={passwordHandler}
         />
       </div>
-
+      <br />
       <div>
-        <button onClick={loginHandler}>로그인</button>
+        <button onClick={registerHandler}>제출하기</button>
         <button>
-          <Link to="/register">회원가입하러 가기</Link>
+          <Link to="/login">로그인하러 가기</Link>
         </button>
       </div>
     </div>
   );
 }
 
-export default LoginPage;
+export default Register;
