@@ -28,12 +28,12 @@ function LoginPage() {
         if (res.data.loginSuccess) {
           //성공적으로 로그인 된경우 -> 랜딩 페이지로 라우팅
           navigate("/main", { replace: false });
-        } else if (res.data.worngPassword) {
-          //존재하지 않는 이메일인 경우 -> ajax 경고 "이메일에 해당하는 계정이 존재하지 않습니다."
-          setalramText("비밀번호가 틀렸습니다.");
         } else if (res.data.notExistEmail) {
-          //이메일은 맞지만 비밀번호가 틀린경우 -> ajax 경고 "비밀번호가 틀렸습니다."
+          //존재하지 않는 이메일인 경우 -> ajax 경고 "이메일에 해당하는 계정이 존재하지 않습니다."
           setalramText("이메일에 해당하는 계정이 존재하지 않습니다.");
+        } else if (res.data.worngPassword) {
+          //이메일은 맞지만 비밀번호가 틀린경우 -> ajax 경고 "비밀번호가 틀렸습니다."
+          setalramText("비밀번호가 틀렸습니다.");
         } else {
           setalramText("[로그인] 이건 무슨 상황인가여..");
         }

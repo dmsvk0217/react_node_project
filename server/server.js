@@ -72,6 +72,34 @@ app.post("/api/register", function (req, res) {
   //console.log("[last]data is ", data);
 });
 
-app.get("/login", function (req, res) {
-  res.send("hello");
+app.post("/api/login", function (req, res) {
+  /**
+   로그인 프로세스
+   1. 이메일과 비밀번호를 가져온다.
+   2. 이메일이 존재하는지 확인한다 없다면 "이메일에 해당하는 계정이 존재하지 않습니다."
+   3. 이메일이 존재한다면 비밀번호가 일치하는지 확인한다. 틀리다면 "비밀번호가 틀렸습니다."
+   4. 로그인 성공 메세지보내기 loginSuccess:true
+   */
+  const email = req.body.email;
+  const password = req.body.password;
+  let data;
+  const sqlGetByEmail = "select * from user where email = ?";
+
+  connection.query(sqlGetByEmail, [email], function (err, results, fields) {
+    if (err) throw err;
+    if (!results[0]) {
+      data = { notExistEmail: true };
+    } else if (results[0].password != password) {
+      data = { worngPassword: true };
+    } else {
+      data = { loginSuccess: true };
+    }
+    res.json(data);
+    /*
+      console.log(results);
+      console.log(results[0]);
+      [ RowDataPacket { UID: 21, email: 'test', password: 'test' } ]
+      [0] RowDataPacket { UID: 21, email: 'test', password: 'test' }
+    */
+  });
 });
