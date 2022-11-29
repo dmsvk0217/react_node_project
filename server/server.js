@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const port = 7777;
-var mysql = require("mysql");
-var cors = require("cors");
+const mysql = require("mysql");
+const cors = require("cors");
+const bcrypt = require("bcrypt");
 
 //mysql db설정
 var connection = mysql.createConnection({
@@ -14,11 +14,6 @@ var connection = mysql.createConnection({
   database: "nodep",
 });
 connection.connect();
-
-//서버 시작
-app.listen(port, function () {
-  console.log(`listening on ${port}`);
-});
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "front/build")));
@@ -41,10 +36,8 @@ app.post("/api/register", function (req, res) {
   //Q : USER ID를 넘겨야 하는가?
   console.log("Register request email is ", req.body.email);
   const email = req.body.email;
-  const newUser = {
-    email: req.body.email,
-    password: req.body.password,
-  };
+  const password = req.body.password;
+  const saltRounds = 10;
   var data;
 
   const sqlSelect = "select * from user where email = ? ";
@@ -60,11 +53,22 @@ app.post("/api/register", function (req, res) {
       res.json(data);
     } else {
       console.log("유저를 생성합니다.");
-      connection.query(sqlInsert, newUser, function (err, result, fields) {
+
+      bcrypt.hash(password, saltRounds, function (err, hash) {
+        // Store hash in your password DB.
         if (err) throw err;
-        data = { registerSuccess: true };
-        // result has insertId
-        res.json(data);
+
+        const newUser = {
+          email: req.body.email,
+          password: hash,
+        };
+
+        connection.query(sqlInsert, newUser, function (err, result, fields) {
+          if (err) throw err;
+          data = { registerSuccess: true };
+          // result has insertId
+          res.json(data);
+        });
       });
     }
   });
@@ -102,4 +106,11 @@ app.post("/api/login", function (req, res) {
       [0] RowDataPacket { UID: 21, email: 'test', password: 'test' }
     */
   });
+});
+
+//서버 시작
+const port = 7777;
+
+app.listen(port, function () {
+  console.log(`listening on ${port}`);
 });
