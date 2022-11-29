@@ -84,8 +84,8 @@ app.post("/api/login", function (req, res) {
    3. 이메일이 존재한다면 비밀번호가 일치하는지 확인한다. 틀리다면 "비밀번호가 틀렸습니다."
    4. 로그인 성공 메세지보내기 loginSuccess:true
    */
+
   const email = req.body.email;
-  const password = req.body.password;
   let data;
   const sqlGetByEmail = "select * from user where email = ?";
 
@@ -93,12 +93,21 @@ app.post("/api/login", function (req, res) {
     if (err) throw err;
     if (!results[0]) {
       data = { notExistEmail: true };
-    } else if (results[0].password != password) {
-      data = { worngPassword: true };
     } else {
-      data = { loginSuccess: true };
+      const hash = results[0].password;
+      const plainPassword = req.body.password;
+      // console.log("hash : ", hash);
+      // console.log("plainPassword : ", plainPassword);
+      bcrypt.compare(plainPassword, hash).then(function (result) {
+        //console.log("bcrpyt compare result : ", result);
+        if (result) {
+          data = { loginSuccess: true };
+        } else {
+          data = { worngPassword: true };
+        }
+        res.json(data);
+      });
     }
-    res.json(data);
     /*
       console.log(results);
       console.log(results[0]);
