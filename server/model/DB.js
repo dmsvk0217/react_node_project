@@ -10,4 +10,4 @@ var connection = mysql.createConnection({
   database: DBconfig.DATABASE,
 });
 
-module.exports = connection.connect();
+module.exports = connection;
