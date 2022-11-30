@@ -19,14 +19,10 @@ User.login = (user, cb) => {
       return cb(null, data);
     } else {
       const hash = results[0].password;
-      console.log("🚀 ~ file: User.js:22 ~ hash", hash);
       const plainPassword = password;
-      console.log("🚀 ~ file: User.js:24 ~ plainPassword", plainPassword);
-
       bcrypt.compare(plainPassword, hash).then(function (result) {
         if (result) data = { loginSuccess: true };
         else data = { worngPassword: true };
-        console.log("🚀 ~ file: User.js:28 ~ result", result);
         return cb(null, data);
       });
     }

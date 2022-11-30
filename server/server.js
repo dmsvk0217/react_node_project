@@ -5,6 +5,7 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "front/build")));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get("/", function (req, res) {
@@ -14,9 +15,7 @@ app.get("/", function (req, res) {
 
 require("./routes/routeUser")(app);
 
-//서버 시작
 const port = 7777;
-
 app.listen(port, function () {
   console.log(`listening on ${port}`);
 });
