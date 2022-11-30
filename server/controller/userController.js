@@ -13,6 +13,12 @@ exports.login = (req, res) => {
 
 //Q : USER ID를 넘겨야 하는가?
 exports.register = (req, res) => {
+  //validate request check
+  if (!req.body) {
+    res.status(400).send({
+      data: "Content can not be empty!",
+    });
+  }
   const user = new User({ email: req.body.email, password: req.body.password });
 
   User.register(user, (err, data) => {
