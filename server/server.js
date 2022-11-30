@@ -24,14 +24,6 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "./index.html"));
 });
 
-// connection.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
-//   if (error) throw error;
-//   console.log("The solution is: ", results[0].solution);
-// });
-
-//connection.end();
-//mysql db설정
-
 app.post("/api/register", function (req, res) {
   //Q : USER ID를 넘겨야 하는가?
   console.log("Register request email is ", req.body.email);
