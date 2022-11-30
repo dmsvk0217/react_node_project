@@ -18,7 +18,7 @@ function LoginPage() {
   const loginHandler = function () {
     //axios로 서버에게 login요청하기
     axios
-      .post("http://localhost:7777/api/login", {
+      .post("http://localhost:7777/api/user/login", {
         email: email,
         password: password,
       })

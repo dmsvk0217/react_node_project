@@ -24,7 +24,7 @@ function Register() {
     axios로 서버에게 register요청하기
     */
     axios // proxy 경로 적용이 왜 안되는지 모르겠음........ 적용이 안됐는데 왜 cors오류는 발생안하는지도 모르겠음......
-      .post("http://localhost:7777/api/register", {
+      .post("http://localhost:7777/api/user/register", {
         name: name,
         email: email,
         password: password,
