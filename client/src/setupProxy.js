@@ -6,9 +6,6 @@ module.exports = function (app) {
     createProxyMiddleware({
       target: "http://localhost:7777",
       changeOrigin: true,
-      pathRewrite: {
-        "^/api": "", // URL ^/api -> 공백 변경
-      },
     })
   );
 };
