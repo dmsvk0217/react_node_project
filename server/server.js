@@ -13,7 +13,7 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "./index.html"));
 });
 
-require("./routes/routeUser")(app);
+require("./routes/user.routes")(app);
 
 const port = 7777;
 app.listen(port, function () {

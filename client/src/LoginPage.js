@@ -25,6 +25,9 @@ function LoginPage() {
       .then((res) => {
         console.log(res);
         console.log(res.data);
+        console.log("res.data.loginSuccess is ", res.data.loginSuccess);
+        console.log("res.data.notExistEmail is ", res.data.notExistEmail);
+        console.log("res.data.worngPassword is ", res.data.worngPassword);
         if (res.data.loginSuccess) {
           //성공적으로 로그인 된경우 -> 랜딩 페이지로 라우팅
           navigate("/main", { replace: false });
@@ -39,7 +42,7 @@ function LoginPage() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("err is ", err);
       });
   };
 
