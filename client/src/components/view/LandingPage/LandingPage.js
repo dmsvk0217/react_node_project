@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MainImage from "./Sections/MainImage";
+import GridCard from "../common/GridCard";
 
 function LandingPage() {
   const [lists, setlists] = useState([]);
@@ -25,12 +26,27 @@ function LandingPage() {
   return (
     <div style={{ width: "100%", margin: 0 }}>
       {/*main image*/}
-      {MainImage && <MainImage list={MainListImage} />}
+      {MainImage && <MainImage item={MainListImage} />}
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <h2>List by lastest</h2>
         <hr />
-
         {/* list Grid Cards */}
+        <div
+          style={{
+            display: "flex",
+            alignContent: "center",
+            flexFlow: "row wrap",
+            justifyContent: "space-evenly",
+            alignContent: "space-around",
+          }}
+        >
+          {lists &&
+            lists.map((list, index) => (
+              <React.Fragment key={index}>
+                <GridCard item={list} />
+              </React.Fragment>
+            ))}
+        </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <button>Load More</button>

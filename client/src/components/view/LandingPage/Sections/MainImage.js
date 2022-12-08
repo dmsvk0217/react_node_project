@@ -4,7 +4,7 @@ export default function MainImage(props) {
   return (
     <div
       style={{
-        backgroundImage: `url('${props.list.image}')`,
+        backgroundImage: `url('${props.item.image}')`,
         height: "500px",
         backgroundPosition: "center, center",
         width: "100%",
@@ -20,9 +20,9 @@ export default function MainImage(props) {
             marginLeft: "2rem",
           }}
         >
-          <h2 style={{ color: "white" }}>{props.list.title}</h2>
+          <h2 style={{ color: "white" }}>{props.item.title}</h2>
           <p style={{ color: "white", fontSize: "1rem" }}>
-            {props.list.description}
+            {props.item.description}
           </p>
         </div>
       </div>
