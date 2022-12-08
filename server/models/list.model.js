@@ -126,4 +126,4 @@ List.removeAll = (result) => {
   });
 };
 
-module.exports = list;
+module.exports = List;

@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
-import LoginPage from "./LoginPage";
-import RegisterPage from "./RegisterPage";
-import LandingPage from "./LandingPage";
+import LandingPage from "./components/view/LandingPage/LandingPage";
+import RegisterPage from "./components/view/RegisterPage/RegisterPage";
+import LoginPage from "./components/view/LoginPage/LoginPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

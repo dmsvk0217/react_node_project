@@ -14,6 +14,7 @@ app.get("/", function (req, res) {
 });
 
 require("./routes/user.routes")(app);
+require("./routes/list.routes")(app);
 
 const port = 7777;
 app.listen(port, function () {
