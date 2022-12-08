@@ -56,3 +56,5 @@ function LandingPage() {
 }
 
 export default LandingPage;
+
+//INSERT INTO lists (title, description, published, image) VALUES ('this is title3', 'this is description3', 'published3', 'https://i.scdn.co/image/ab6761610000e5eb5f8e232c7c529734eab28b66');
