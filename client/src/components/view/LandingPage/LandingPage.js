@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MainImage from "./Sections/MainImage";
 import GridCard from "../common/GridCard";
+import NavBar from "../NavBar/NavBar";
 
 function LandingPage() {
   const [lists, setlists] = useState([]);
@@ -25,6 +26,7 @@ function LandingPage() {
 
   return (
     <div style={{ width: "100%", margin: 0 }}>
+      <NavBar />
       {/*main image*/}
       {MainImage && <MainImage item={MainListImage} />}
       <div style={{ width: "85%", margin: "1rem auto" }}>

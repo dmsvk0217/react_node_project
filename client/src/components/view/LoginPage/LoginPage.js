@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
 
 function LoginPage() {
   const navigate = useNavigate();
