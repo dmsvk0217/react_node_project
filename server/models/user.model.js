@@ -1,7 +1,5 @@
 const bcrypt = require("bcrypt");
-const connection = require("../config/db");
-const secret = require("../config/auth.config");
-const jwt = require("jsonwebtoken");
+const connection = require("./db");
 
 const User = function (user) {
   this.email = user.email;
@@ -10,29 +8,9 @@ const User = function (user) {
 };
 
 User.login = (user, id, cb) => {
-  // verify check 완료된 상태.
-  let data;
-  const sqlInsertToken = "UPDATE posts SET token = ? WHERE id = ?";
-
-  data = { loginSuccess: true };
+  // verify check 완료된 상태. -> jwt인증구현
+  let data = { loginSuccess: true };
   return cb(null, data);
-
-  // jwt.sign(id, secret, function (err, token) {
-  //   if (err) return cb(err, null);
-  //   console.log("token ; ", token);
-
-  //   connection.query(
-  //     sqlInsertToken,
-  //     [token, id],
-  //     function (error, results, fields) {
-  //       if (error) return cb(error, null);
-  //       else {
-  //         data = { LoginSuccess: true };
-  //         return cb(null, data);
-  //       }
-  //     }
-  //   );
-  // });
 };
 
 User.register = (user, cb) => {
@@ -52,10 +30,3 @@ User.register = (user, cb) => {
 };
 
 module.exports = User;
-
-/*
-  console.log(results);
-  console.log(results[0]);
-  [ RowDataPacket { UID: 21, email: 'test', password: 'test' } ]
-  [0] RowDataPacket { UID: 21, email: 'test', password: 'test' }
-*/

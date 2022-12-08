@@ -1,5 +1,5 @@
 const user = require("../models/user.model");
-const connection = require("../config/db");
+const connection = require("../models/db");
 const bcrypt = require("bcrypt");
 
 checkEmail = (req, res, next) => {
