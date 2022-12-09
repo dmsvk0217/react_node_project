@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ function LoginPage() {
         // console.log("res.data.worngPassword is ", res.data.worngPassword);
         if (res.data.loginSuccess) {
           //성공적으로 로그인 된경우 -> 랜딩 페이지로 라우팅
-          navigate("/main", { replace: false });
+          navigate("/", { replace: false });
         } else if (res.data.notExistEmail) {
           //존재하지 않는 이메일인 경우 -> ajax 경고 "이메일에 해당하는 계정이 존재하지 않습니다."
           setalramText("이메일에 해당하는 계정이 존재하지 않습니다.");
