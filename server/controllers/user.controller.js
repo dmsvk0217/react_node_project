@@ -1,18 +1,33 @@
 const User = require("../models/user.model");
 
 exports.login = (req, res) => {
-  const user = new User({ email: req.body.email, password: req.body.password });
-  const id = req.uid;
+  console.log("cookie : ", req.cookies);
+
+  const user = new User({
+    id: req.body.id,
+    email: req.body.email,
+    password: req.body.password,
+  });
+
+  const id = req.body.id;
+
   console.log("login 가즈아!!!");
-  User.login(user, id, (err, data) => {
-    if (err) {
-      res.status(500).json(data || "Some error occured while logining user");
-    }
-    res.json(data);
+  console.log("req.body.id : ", id);
+
+  User.generateToken(user, (err, result) => {
+    if (err) return res.status(400).send(err);
+
+    //쿠키에 토큰저장하기
+    console.log("user.token : ", user.token);
+    console.log("user.id : ", user.id);
+    res
+      .cookie("x_auth", user.token)
+      .status(200)
+      .json({ userId: user.id, loginSuccess: true });
+    // login 성공 메세지와 userid넘기기
   });
 };
 
-//Q : USER ID를 넘겨야 하는가?
 exports.register = (req, res) => {
   //validate request check
   if (!req.body) {

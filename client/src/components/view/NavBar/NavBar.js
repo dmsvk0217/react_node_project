@@ -15,7 +15,7 @@ function NavBar() {
       </div>
       <ul className={isActive ? "navbar__menu active" : "navbar__menu"}>
         <li>
-          <a href="#">home</a>
+          <a href="/">home</a>
         </li>
         <li>
           <a href="#">contact</a>
@@ -29,7 +29,7 @@ function NavBar() {
       </ul>
       <ul className={isActive ? "navbar__link active" : "navbar__link"}>
         <li>
-          <a href="#">twitter</a>
+          <a href="/login">login</a>
         </li>
         <li>
           <a href="#">facebook</a>

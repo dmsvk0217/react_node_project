@@ -53,7 +53,7 @@ List.getAll = (title, result) => {
       return;
     }
 
-    console.log("lists: ", res);
+    //console.log("lists: ", res);
     result(null, res);
   });
 };

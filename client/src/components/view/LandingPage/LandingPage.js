@@ -15,7 +15,7 @@ function LandingPage() {
       .get(endPoint)
       .then((res) => {
         //res.data로 lists가 넘어옴.
-        console.log(res.data);
+        //console.log(res.data);
         setlists(res.data);
         setMainListImage(res.data[0]);
       })
@@ -26,7 +26,6 @@ function LandingPage() {
 
   return (
     <div style={{ width: "100%", margin: 0 }}>
-      <NavBar />
       {/*main image*/}
       {MainImage && <MainImage item={MainListImage} />}
       <div style={{ width: "85%", margin: "1rem auto" }}>

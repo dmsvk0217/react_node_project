@@ -25,8 +25,9 @@ checkEmail = (req, res, next) => {
 
 checkEmailAndPassword = (req, res, next) => {
   const email = req.body.email;
-  const sqlGetByEmail = "select * from user where email = ?";
   const plainPassword = req.body.password;
+
+  const sqlGetByEmail = "select * from user where email = ?";
   let data;
 
   connection.query(sqlGetByEmail, [email], function (err, results, fields) {
@@ -41,14 +42,12 @@ checkEmailAndPassword = (req, res, next) => {
       data = { notExistEmail: true };
       res.send(data);
     } else {
-      console.log("result[0]: ", results[0]);
       const hash = results[0].password;
       bcrypt.compare(plainPassword, hash).then(function (result) {
-        console.log("🚀 ~ file: verifySign.js:47 ~ result", result);
+        console.log("bcrypt result is", result);
         if (result) {
-          console.log("1111111111");
-          req.uid = results[0].UID;
-          console.log("22222222");
+          console.log("login middleware 통과");
+          req.body.id = results[0].UID;
           next();
         } else {
           //비밀번호 불일치.

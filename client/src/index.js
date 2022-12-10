@@ -12,6 +12,7 @@ import UpdateDetailPage from "./components/view/UpdateDetailPage/UpdateDetailPag
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <NavBar />
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />

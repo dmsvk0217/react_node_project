@@ -1,7 +1,10 @@
 const bcrypt = require("bcrypt");
 const connection = require("./db");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const User = function (user) {
+  this.id = user.id;
   this.email = user.email;
   this.password = user.password;
   this.token = user.token;
@@ -26,6 +29,24 @@ User.register = (user, cb) => {
       data = { registerSuccess: true };
       return cb(null, data);
     });
+  });
+};
+
+User.generateToken = (user, cb) => {
+  console.log("generateToken--------");
+  console.log("user : ", user);
+  console.log("this user.id : ", user.id);
+  //jwt 생성하기
+  var token = jwt.sign(user.id.toString(), "secretToken");
+  user.token = token;
+  console.log("token : ", token);
+
+  var sql = "UPDATE user set token=? where UID=?";
+
+  connection.query(sql, [user.token, user.id], function (err, result) {
+    if (err) return cb(err);
+    console.log(result.affectedRows + " record(s) updated");
+    return cb(null, result);
   });
 };
 
