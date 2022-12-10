@@ -2,27 +2,51 @@ import React from "react";
 import "./NavBar.css";
 
 function NavBar() {
+  const toggleHandler = () => {
+    this.navbar__menu.classList.toggle("active");
+    this.navbar__link.classList.toggle("active");
+  };
   return (
-    <div className="navBar">
-      <div className="navIcon">
-        <p>Welove</p>
+    <nav className="navbar">
+      <div className="navbar__logo">
+        <a href="#">Welove</a>
       </div>
-      <div className="navMenus">
-        <p className="navMenu">Home</p>
-        <p className="navMenu">Gallery</p>
-        <p className="navMenu">Weddings</p>
-        <p className="navMenu">FAQ</p>
-        <p className="navMenu">Bookings</p>
-      </div>
-      <div className="navLink">
-        <p className="navLinks">twitter</p>
-        <p className="navLinks">facebook</p>
-        <p className="navLinks">youtube</p>
-      </div>
-      <div className="toggleButton">
-        <p>toggle</p>
-      </div>
-    </div>
+      <ul
+        className="navbar__menu"
+        ref={(c) => {
+          this.navbar__menu = c;
+        }}
+      >
+        <li>
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">Gallery</a>
+        </li>
+        <li>
+          <a href="#">Weddings</a>
+        </li>
+        <li>
+          <a href="#">FAQ</a>
+        </li>
+      </ul>
+      <ul
+        className="navbar__link"
+        ref={(c) => {
+          this.navbar__link = c;
+        }}
+      >
+        <li>
+          <a href="#">twitter</a>
+        </li>
+        <li>
+          <a href="#">facebook</a>
+        </li>
+      </ul>
+      <a href="#" className="navbar__toogleBtn" onClick={toggleHandler}>
+        Btn
+      </a>
+    </nav>
   );
 }
 

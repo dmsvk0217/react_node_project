@@ -15,6 +15,7 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/nav" element={<NavBar />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/list/:listid" element={<ListDetailPage />} />
