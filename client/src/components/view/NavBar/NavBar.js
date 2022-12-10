@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./NavBar.css";
 
 function NavBar() {
@@ -6,6 +7,20 @@ function NavBar() {
 
   const toggleHandler = () => {
     setisActive(!isActive);
+  };
+
+  const logoutHandler = () => {
+    const endPoint = "/api/user/logout"; // find all
+
+    axios
+      .post(endPoint)
+      .then((res) => {
+        //res.data로 lists가 넘어옴.
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("err is ", err);
+      });
   };
 
   return (
@@ -32,7 +47,9 @@ function NavBar() {
           <a href="/login">login</a>
         </li>
         <li>
-          <a href="#">facebook</a>
+          <a href="#" onClick={logoutHandler}>
+            logout
+          </a>
         </li>
       </ul>
       <a href="#" className="toggleBtn" onClick={toggleHandler}>

@@ -28,7 +28,7 @@ function LandingPage() {
     const endPoint = "/api/user/auth"; // find all
 
     axios
-      .get(endPoint)
+      .post(endPoint)
       .then((res) => {
         //res.data로 user정보가 넘어옴.
         console.log("res : ", res);

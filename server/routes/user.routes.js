@@ -8,7 +8,9 @@ module.exports = (app) => {
 
   router.post("/register", verifySign.checkEmail, userController.register);
 
-  router.get("/auth", auth, userController.auth);
+  router.post("/auth", auth, userController.auth);
+
+  router.post("/logout", auth, userController.logout);
 
   app.use("/api/user", router);
 };

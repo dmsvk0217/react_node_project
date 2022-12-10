@@ -47,7 +47,7 @@ checkEmailAndPassword = (req, res, next) => {
         console.log("bcrypt result is", result);
         if (result) {
           console.log("login middleware 통과");
-          req.body.id = results[0].UID;
+          req.body.UID = results[0].UID;
           next();
         } else {
           //비밀번호 불일치.

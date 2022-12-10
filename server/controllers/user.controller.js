@@ -1,29 +1,30 @@
 const User = require("../models/user.model");
+const db = require("../models/db");
 
 exports.login = (req, res) => {
   console.log("cookie : ", req.cookies);
 
   const user = new User({
-    id: req.body.id,
+    UID: req.body.UID,
     email: req.body.email,
     password: req.body.password,
   });
 
-  const id = req.body.id;
+  const UID = req.body.UID;
 
   console.log("login 가즈아!!!");
-  console.log("req.body.id : ", id);
+  console.log("req.body.UID : ", UID);
 
   User.generateToken(user, (err, result) => {
     if (err) return res.status(400).send(err);
 
     //쿠키에 토큰저장하기
     console.log("user.token : ", user.token);
-    console.log("user.id : ", user.id);
+    console.log("user.UID : ", user.UID);
     res
       .cookie("x_auth", user.token)
       .status(200)
-      .json({ userId: user.id, loginSuccess: true });
+      .json({ userId: user.UID, loginSuccess: true });
     // login 성공 메세지와 userid넘기기
   });
 };
@@ -48,7 +49,16 @@ exports.register = (req, res) => {
 exports.auth = (req, res) => {
   //auth 인증 완료된 상태.
   const user = req.user;
-  const data = { userid: user.id, email: user.email };
-  console.log("controller auth : ", user);
-  res.json(data);
+  res.json({ userid: user.UID, email: user.email });
+};
+
+exports.logout = (req, res) => {
+  const user = req.user;
+  //db에서 user.token값 null로 만들기.
+  var sql = "UPDATE user set token=NULL where UID=?";
+  db.query(sql, [user.UID], function (err, result) {
+    if (err) res.status(500).send(err);
+    console.log("로그아웃 성공");
+    return res.json({ logoutSuccess: true });
+  });
 };
