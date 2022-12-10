@@ -1,41 +1,33 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import "./NavBar.css";
 
 function NavBar() {
+  const [isActive, setisActive] = useState(false);
+
   const toggleHandler = () => {
-    this.navbar__menu.classList.toggle("active");
-    this.navbar__link.classList.toggle("active");
+    setisActive(!isActive);
   };
+
   return (
     <nav className="navbar">
       <div className="navbar__logo">
         <a href="#">Welove</a>
       </div>
-      <ul
-        className="navbar__menu"
-        ref={(c) => {
-          this.navbar__menu = c;
-        }}
-      >
+      <ul className={isActive ? "navbar__menu active" : "navbar__menu"}>
         <li>
-          <a href="#">Home</a>
+          <a href="#">home</a>
         </li>
         <li>
-          <a href="#">Gallery</a>
+          <a href="#">contact</a>
         </li>
         <li>
-          <a href="#">Weddings</a>
+          <a href="#">gallery</a>
         </li>
         <li>
           <a href="#">FAQ</a>
         </li>
       </ul>
-      <ul
-        className="navbar__link"
-        ref={(c) => {
-          this.navbar__link = c;
-        }}
-      >
+      <ul className={isActive ? "navbar__link active" : "navbar__link"}>
         <li>
           <a href="#">twitter</a>
         </li>
@@ -43,7 +35,7 @@ function NavBar() {
           <a href="#">facebook</a>
         </li>
       </ul>
-      <a href="#" className="navbar__toogleBtn" onClick={toggleHandler}>
+      <a href="#" className="toggleBtn" onClick={toggleHandler}>
         Btn
       </a>
     </nav>

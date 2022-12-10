@@ -3,23 +3,24 @@
   justify-content: space-between;
   align-items: center;
   background-color: gray;
-  color: white;
-  padding: 8px 12px;
+  padding: 8px 14px;
 }
 a {
   text-decoration: none;
   color: white;
+}
+li {
+  list-style: none;
 }
 .navbar__logo {
   font-size: 24px;
 }
 .navbar__menu {
   display: flex;
-  list-style: none;
-  padding-left: 0px;
+  padding-left: 0;
 }
 .navbar__menu li {
-  padding: 8px 12px;
+  padding: 8px 14px;
 }
 .navbar__menu li:hover {
   background-color: orange;
@@ -27,15 +28,15 @@ a {
 }
 .navbar__link {
   display: flex;
-  list-style: none;
-  padding-left: 0px;
+  padding-left: 0;
 }
 .navbar__link li {
   padding: 8px 14px;
 }
-.navbar__toogleBtn {
+.toggleBtn {
   display: none;
 }
+
 @media screen and (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -54,23 +55,21 @@ a {
   }
   .navbar__link {
     display: none;
-    justify-content: center;
     width: 100%;
+    justify-content: center;
   }
-  .navbar__toogleBtn {
+  .toggleBtn {
     display: block;
     position: absolute;
-    padding: 0px 12px;
-    right: 32px;
-    font-size: 24px;
+    right: 24px;
+    padding: 0px 16px;
   }
-  .navbar__toogleBtn:hover {
+  .toggleBtn:hover {
     background-color: orange;
     border-radius: 4px;
   }
-
   .navbar__menu.active,
-  .navbar__logo.active {
+  .navbar__link.active {
     display: flex;
   }
 }
