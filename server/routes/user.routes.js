@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const { verifySign } = require("../middleware");
+  const { verifySign, auth } = require("../middleware");
   const userController = require("../controllers/user.controller");
 
   var router = require("express").Router();
@@ -7,6 +7,8 @@ module.exports = (app) => {
   router.post("/login", verifySign.checkEmailAndPassword, userController.login);
 
   router.post("/register", verifySign.checkEmail, userController.register);
+
+  router.get("/auth", auth, userController.auth);
 
   app.use("/api/user", router);
 };

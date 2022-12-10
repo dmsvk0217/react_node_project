@@ -1,3 +1,4 @@
 module.exports = {
-  secret: "secret",
+  secret: "secret", // bcrpyt secret word
+  secretToken: "secretToken", // jwt secret word
 };

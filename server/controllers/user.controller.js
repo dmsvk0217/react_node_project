@@ -44,3 +44,11 @@ exports.register = (req, res) => {
     res.json(data);
   });
 };
+
+exports.auth = (req, res) => {
+  //auth 인증 완료된 상태.
+  const user = req.user;
+  const data = { userid: user.id, email: user.email };
+  console.log("controller auth : ", user);
+  res.json(data);
+};

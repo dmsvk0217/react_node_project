@@ -9,7 +9,7 @@ function LandingPage() {
   const [MainListImage, setMainListImage] = useState("");
 
   useEffect(() => {
-    const endPoint = "http://localhost:7777/api/lists/"; // find all
+    const endPoint = "/api/lists/"; // find all
 
     axios
       .get(endPoint)
@@ -18,6 +18,21 @@ function LandingPage() {
         //console.log(res.data);
         setlists(res.data);
         setMainListImage(res.data[0]);
+      })
+      .catch((err) => {
+        console.log("err is ", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    const endPoint = "/api/user/auth"; // find all
+
+    axios
+      .get(endPoint)
+      .then((res) => {
+        //res.data로 user정보가 넘어옴.
+        console.log("res : ", res);
+        console.log("res.data : ", res.data);
       })
       .catch((err) => {
         console.log("err is ", err);
