@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./NavBar.css";
 
 function NavBar() {
+  const navigate = useNavigate();
   const [isActive, setisActive] = useState(false);
 
   const toggleHandler = () => {
@@ -17,6 +19,9 @@ function NavBar() {
       .then((res) => {
         //res.data로 lists가 넘어옴.
         console.log(res.data);
+        if (res.data.logoutSuccess) {
+          navigate("/login", { replace: true });
+        }
       })
       .catch((err) => {
         console.log("err is ", err);
@@ -26,30 +31,28 @@ function NavBar() {
   return (
     <nav className="navbar">
       <div className="navbar__logo">
-        <a href="#">Welove</a>
+        <Link to="/">Welove</Link>
       </div>
       <ul className={isActive ? "navbar__menu active" : "navbar__menu"}>
         <li>
-          <a href="/">home</a>
+          <Link to="/">home</Link>
         </li>
         <li>
-          <a href="#">contact</a>
+          <Link to="#">contact</Link>
         </li>
         <li>
-          <a href="#">gallery</a>
+          <Link to="#">gallery</Link>
         </li>
         <li>
-          <a href="#">FAQ</a>
+          <Link to="#">FAQ</Link>
         </li>
       </ul>
       <ul className={isActive ? "navbar__link active" : "navbar__link"}>
         <li>
-          <a href="/login">login</a>
+          <Link to="/login">login</Link>
         </li>
         <li>
-          <a href="#" onClick={logoutHandler}>
-            logout
-          </a>
+          <span onClick={logoutHandler}>logout</span>
         </li>
       </ul>
       <a href="#" className="toggleBtn" onClick={toggleHandler}>

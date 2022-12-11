@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./view/LandingPage/LandingPage";
 import RegisterPage from "./view/RegisterPage/RegisterPage";
@@ -9,12 +9,12 @@ import UpdateDetailPage from "./view/UpdateDetailPage/UpdateDetailPage";
 
 function App() {
   return (
+    // <Suspense fallback={<div>Loading...</div>}>
     <React.StrictMode>
-      <NavBar />
       <Router>
+        <NavBar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/nav" element={<NavBar />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/list/:listid" element={<ListDetailPage />} />
@@ -22,6 +22,7 @@ function App() {
         </Routes>
       </Router>
     </React.StrictMode>
+    /* </Suspense> */
   );
 }
 
