@@ -83,7 +83,9 @@ function Register() {
       <div>
         <button onClick={registerHandler}>제출하기</button>
         <button>
-          <Link to="/login">로그인하러 가기</Link>
+          <Link style={{ color: "black" }} to="/login">
+            로그인하러 가기
+          </Link>
         </button>
       </div>
     </div>

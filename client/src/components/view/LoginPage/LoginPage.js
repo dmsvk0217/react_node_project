@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { loginUser } from "../../../_actions/user_action";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function LoginPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,29 +19,25 @@ function LoginPage() {
 
   const loginHandler = function () {
     //axios로 서버에게 login요청하기
-    axios
-      .post(
-        "/api/user/login",
-        {
-          email: email,
-          password: password,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        // console.log(res);
-        // console.log(res.data);
-        if (res.data.loginSuccess) {
-          //성공적으로 로그인 된경우 -> 랜딩 페이지로 라우팅
+    const dataToSubmit = {
+      email: email,
+      password: password,
+    };
+
+    dispatch(loginUser(dataToSubmit))
+      .then((response) => {
+        // console.log(response);
+        // console.log(response.data);
+        if (response.payload.loginSuccess) {
           navigate("/", { replace: false });
-        } else if (res.data.notExistEmail) {
-          //존재하지 않는 이메일인 경우 -> ajax 경고 "이메일에 해당하는 계정이 존재하지 않습니다."
+        } else if (response.payload.notExistEmail) {
           setalramText("이메일에 해당하는 계정이 존재하지 않습니다.");
-        } else if (res.data.worngPassword) {
-          //이메일은 맞지만 비밀번호가 틀린경우 -> ajax 경고 "비밀번호가 틀렸습니다."
+        } else if (response.payload.worngPassword) {
           setalramText("비밀번호가 틀렸습니다.");
         } else {
-          setalramText("[로그인] 이건 무슨 상황인가여..");
+          setalramText(
+            "[error] 로그인 과정에서 알 수 없는 에러가 발생했습니다."
+          );
         }
       })
       .catch((err) => {
@@ -77,7 +75,9 @@ function LoginPage() {
       <div>
         <button onClick={loginHandler}>로그인</button>
         <button>
-          <Link to="/register">회원가입하러 가기</Link>
+          <Link style={{ color: "black" }} to="/register">
+            회원가입하러 가기
+          </Link>
         </button>
       </div>
     </div>

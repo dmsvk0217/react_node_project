@@ -1,27 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
-import LandingPage from "./components/view/LandingPage/LandingPage";
-import RegisterPage from "./components/view/RegisterPage/RegisterPage";
-import LoginPage from "./components/view/LoginPage/LoginPage";
-import ListDetailPage from "./components/view/ListDetail/ListDetailPage";
-import NavBar from "./components/view/NavBar/NavBar";
-import UpdateDetailPage from "./components/view/UpdateDetailPage/UpdateDetailPage";
+import { applyMiddleware, createStore } from "redux";
+import promiseMiddleware from "redux-promise";
+import ReduxThunk from "redux-thunk";
+import Reducer from "./_reducers/index";
+import { Provider } from "react-redux";
+import App from "./components/App";
+
+const createStoreWithMiddleware = applyMiddleware(
+  promiseMiddleware,
+  ReduxThunk
+)(createStore);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <NavBar />
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/nav" element={<NavBar />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/list/:listid" element={<ListDetailPage />} />
-        <Route path="/updateList/:listid" element={<UpdateDetailPage />} />
-      </Routes>
-    </Router>
-  </React.StrictMode>
+  <Provider
+    store={createStoreWithMiddleware(
+      Reducer,
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )}
+  >
+    <App />
+  </Provider>
 );

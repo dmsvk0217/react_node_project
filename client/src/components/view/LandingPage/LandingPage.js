@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MainImage from "./Sections/MainImage";
 import GridCard from "../common/GridCard";
-import NavBar from "../NavBar/NavBar";
 
 function LandingPage() {
   const [lists, setlists] = useState([]);
