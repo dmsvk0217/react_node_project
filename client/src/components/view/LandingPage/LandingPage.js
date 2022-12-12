@@ -23,21 +23,6 @@ function LandingPage() {
       });
   }, []);
 
-  useEffect(() => {
-    const endPoint = "/api/user/auth"; // find all
-
-    axios
-      .post(endPoint)
-      .then((res) => {
-        //res.data로 user정보가 넘어옴.
-        console.log("res : ", res);
-        console.log("res.data : ", res.data);
-      })
-      .catch((err) => {
-        console.log("err is ", err);
-      });
-  }, []);
-
   return (
     <div style={{ width: "100%", margin: 0 }}>
       {/*main image*/}

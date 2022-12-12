@@ -13,7 +13,7 @@ let auth = (req, res, next) => {
     db.query(sql, [decode, token], (err, user) => {
       if (err) res.status(500).send(err);
       if (!user[0]) {
-        res.json({ authError: true });
+        res.json({ isAuth: false, error: true });
       }
       req.user = user[0];
       next();

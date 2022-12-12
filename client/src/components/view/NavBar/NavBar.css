@@ -9,6 +9,10 @@ a {
   text-decoration: none;
   color: white;
 }
+span {
+  text-decoration: none;
+  color: white;
+}
 li {
   list-style: none;
 }
@@ -22,7 +26,8 @@ li {
 .navbar__menu li {
   padding: 8px 14px;
 }
-.navbar__menu li:hover {
+.navbar__menu li:hover,
+.navbar__link li:hover {
   background-color: orange;
   border-radius: 4px;
 }

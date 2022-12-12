@@ -29,7 +29,7 @@ function LoginPage() {
         // console.log(response);
         // console.log(response.data);
         if (response.payload.loginSuccess) {
-          navigate("/", { replace: false });
+          navigate("/", { replace: true });
         } else if (response.payload.notExistEmail) {
           setalramText("이메일에 해당하는 계정이 존재하지 않습니다.");
         } else if (response.payload.worngPassword) {

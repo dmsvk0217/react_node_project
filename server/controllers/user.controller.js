@@ -49,7 +49,7 @@ exports.register = (req, res) => {
 exports.auth = (req, res) => {
   //auth 인증 완료된 상태.
   const user = req.user;
-  res.json({ userid: user.UID, email: user.email });
+  res.json({ isAuth: true, userid: user.UID, email: user.email });
 };
 
 exports.logout = (req, res) => {

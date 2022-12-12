@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./NavBar.css";
+import NavState from "./NavState.js";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -9,23 +10,6 @@ function NavBar() {
 
   const toggleHandler = () => {
     setisActive(!isActive);
-  };
-
-  const logoutHandler = () => {
-    const endPoint = "/api/user/logout"; // find all
-
-    axios
-      .post(endPoint)
-      .then((res) => {
-        //res.data로 lists가 넘어옴.
-        console.log(res.data);
-        if (res.data.logoutSuccess) {
-          navigate("/login", { replace: true });
-        }
-      })
-      .catch((err) => {
-        console.log("err is ", err);
-      });
   };
 
   return (
@@ -48,12 +32,7 @@ function NavBar() {
         </li>
       </ul>
       <ul className={isActive ? "navbar__link active" : "navbar__link"}>
-        <li>
-          <Link to="/login">login</Link>
-        </li>
-        <li>
-          <span onClick={logoutHandler}>logout</span>
-        </li>
+        <NavState />
       </ul>
       <a href="#" className="toggleBtn" onClick={toggleHandler}>
         Btn
