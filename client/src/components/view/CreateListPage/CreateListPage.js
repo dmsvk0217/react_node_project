@@ -1,11 +1,31 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Radio, Space, Divider } from "antd";
 import "./CreateListPage.css";
 import { rejectStyle, acceptStyle, focusedStyle, baseStyle } from "./dropzone";
 
 function CreateListPage() {
+  const [title, settitle] = useState("");
+  const [description, setdescription] = useState("");
+  const [privateOption, setprivateOption] = useState(0);
+
+  const titleHandler = (e) => {
+    settitle(e.target.value);
+  };
+
+  const descriptionHandler = (e) => {
+    setdescription(e.target.value);
+  };
+
+  const privateOptionHandler = (e) => {
+    setprivateOption(e.target.value);
+  };
+
+  const privateOptionItem = [
+    { value: 0, label: "Private" },
+    { value: 1, label: "Public" },
+  ];
+
   const onDropHandler = (files) => {
     console.log(files);
   };
@@ -54,13 +74,15 @@ function CreateListPage() {
         <div className="input">
           <label htmlFor="title">title</label>
           <br />
-          <input id="title" type="text" />
+          <input id="title" onChange={titleHandler} value={title} type="text" />
         </div>
 
         <div className="input">
           <label htmlFor="description">description</label>
           <br />
           <textarea
+            value={description}
+            onChange={descriptionHandler}
             name="description"
             id="description"
             cols="50"
@@ -70,10 +92,17 @@ function CreateListPage() {
         <br />
         <div className="input">
           <label htmlFor="state">Choose a state:</label>
-          <select name="state" id="state">
-            <option value="private">private</option>
-            <option value="public">public</option>
-            <option value="don't care">don't care</option>
+          <select
+            name="state"
+            id="state"
+            value={privateOption}
+            onChange={privateOptionHandler}
+          >
+            {privateOptionItem.map((item, index) => (
+              <option key={index} value={item.value}>
+                {item.label}
+              </option>
+            ))}
           </select>
         </div>
       </div>
