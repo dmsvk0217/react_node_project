@@ -1,0 +1,33 @@
+.createPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 14px;
+}
+header {
+  font-size: 30px;
+  padding: 20px 0px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropzone {
+  display: flex;
+  justify-content: space-evenly;
+  width: 360px;
+  height: 240px;
+}
+
+.input {
+  padding: 5px 0px;
+}
+
+.button {
+  background-color: blue;
+}
+
+footer {
+  padding-top: 40px;
+}

@@ -33,11 +33,16 @@ function NavState(props) {
     );
   } else {
     return (
-      <li>
-        <Link onClick={logoutHandler} to="/login">
-          logout
-        </Link>
-      </li>
+      <>
+        <li>
+          <Link to="/list/create">업로드</Link>
+        </li>
+        <li>
+          <Link onClick={logoutHandler} to="/login">
+            logout
+          </Link>
+        </li>
+      </>
     );
   }
 }
