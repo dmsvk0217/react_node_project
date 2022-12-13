@@ -3,14 +3,22 @@ import { useDropzone } from "react-dropzone";
 import { PlusOutlined } from "@ant-design/icons";
 import "./CreateListPage.css";
 import { rejectStyle, acceptStyle, focusedStyle, baseStyle } from "./dropzone";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CreateListPage() {
+  const navigate = useNavigate();
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const [privateOption, setprivateOption] = useState(0);
+  const [image, setimage] = useState("");
 
   const titleHandler = (e) => {
     settitle(e.target.value);
+  };
+
+  const imageHandler = (e) => {
+    setimage(e.target.value);
   };
 
   const descriptionHandler = (e) => {
@@ -19,6 +27,21 @@ function CreateListPage() {
 
   const privateOptionHandler = (e) => {
     setprivateOption(e.target.value);
+  };
+
+  const createlistHandler = () => {
+    const list = {
+      title: title,
+      description: description,
+      published: privateOption,
+      image: image,
+    };
+    axios
+      .post("/api/lists/", list, { withCredentials: true })
+      .then((response) => {
+        console.log(response);
+        navigate("/", { replace: true });
+      });
   };
 
   const privateOptionItem = [
@@ -78,6 +101,18 @@ function CreateListPage() {
         </div>
 
         <div className="input">
+          <label htmlFor="image">image</label>
+          <br />
+          <input
+            style={{ width: "100%" }}
+            id="image"
+            onChange={imageHandler}
+            value={image}
+            type="text"
+          />
+        </div>
+
+        <div className="input">
           <label htmlFor="description">description</label>
           <br />
           <textarea
@@ -107,7 +142,7 @@ function CreateListPage() {
         </div>
       </div>
 
-      <button>submit</button>
+      <button onClick={createlistHandler}>submit</button>
       <footer>happy coding</footer>
     </div>
   );

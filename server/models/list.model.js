@@ -5,6 +5,7 @@ const List = function (list) {
   this.title = list.title;
   this.description = list.description;
   this.published = list.published;
+  this.image = list.image;
 };
 
 List.create = (newlist, result) => {

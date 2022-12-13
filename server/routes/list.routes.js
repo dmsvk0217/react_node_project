@@ -3,16 +3,16 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  // Create a new list
+  // Create list
   router.post("/", lists.create);
 
-  // Retrieve all lists
+  // get all lists
   router.get("/", lists.findAll);
 
-  // Retrieve all published lists
+  // get all published lists
   router.get("/published", lists.findAllPublished);
 
-  // Retrieve a single list with id
+  // get a list with id
   router.get("/:id", lists.findOne);
 
   // Update a list with id

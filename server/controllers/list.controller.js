@@ -14,6 +14,7 @@ exports.create = (req, res) => {
     title: req.body.title,
     description: req.body.description,
     published: req.body.published || false,
+    image: req.body.image,
   });
 
   // Save list in the database
