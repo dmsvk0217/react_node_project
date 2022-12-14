@@ -2,21 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MainImage from "./Sections/MainImage";
 import GridCard from "../common/GridCard";
+import { useDispatch } from "react-redux";
+import { getList } from "../../../_actions/list_action";
 
 function LandingPage() {
+  const dispatch = useDispatch();
+
   const [lists, setlists] = useState([]);
   const [MainListImage, setMainListImage] = useState("");
 
   useEffect(() => {
-    const endPoint = "/api/lists/"; // find all
-
-    axios
-      .get(endPoint)
-      .then((res) => {
-        //res.data로 lists가 넘어옴.
-        //console.log(res.data);
-        setlists(res.data);
-        setMainListImage(res.data[0]);
+    dispatch(getList())
+      .then((response) => {
+        setlists(response.payload);
+        setMainListImage(response.payload[0]);
       })
       .catch((err) => {
         console.log("err is ", err);

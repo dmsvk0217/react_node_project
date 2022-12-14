@@ -4,7 +4,7 @@ import LandingPage from "./view/LandingPage/LandingPage";
 import RegisterPage from "./view/RegisterPage/RegisterPage";
 import LoginPage from "./view/LoginPage/LoginPage";
 import ListDetailPage from "./view/ListDetail/ListDetailPage";
-import UpdateDetailPage from "./view/UpdateDetailPage/UpdateDetailPage";
+import UpdateDetailPage from "./view/ListDetail/UpdateDetailPage";
 import CreateListPage from "./view/CreateListPage/CreateListPage";
 import Auth from "../hoc/auth";
 import NavBar from "./view/NavBar/NavBar";

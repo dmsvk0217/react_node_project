@@ -3,33 +3,23 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import MainImage from "../LandingPage/Sections/MainImage";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ListDetailPage() {
   const navigate = useNavigate();
+  const lists = useSelector((state) => state.list.list);
   const [list, setlist] = useState([]);
 
   let listid = useParams().listid;
 
   useEffect(() => {
-    //useParams을 이용하여 id값 받아오기.
-    console.log("listid ", listid);
-
-    const endPoint = `http://localhost:7777/api/lists/${listid}`; // find all
-
-    axios
-      .get(endPoint)
-      .then((res) => {
-        console.log(res.data);
-        setlist(res.data);
-      })
-      .catch((err) => {
-        console.log("err is ", err);
-      });
+    const targetlist = lists.find((list) => list.id == listid);
+    setlist(targetlist);
   }, []);
 
+  // delete list
   const listDeleteHandler = (e) => {
-    const endPoint = `http://localhost:7777/api/lists/${listid}`; // delete list
-
+    const endPoint = `http://localhost:7777/api/lists/${listid}`;
     axios
       .delete(endPoint)
       .then((res) => {
@@ -44,7 +34,7 @@ function ListDetailPage() {
   };
 
   const listUpdateHandler = () => {
-    navigate(`/updateList/${listid}`, { replace: false });
+    navigate(`/list/update/${listid}`, { replace: false });
   };
 
   return (

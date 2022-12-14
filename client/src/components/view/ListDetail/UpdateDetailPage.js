@@ -2,27 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MainImage from "../LandingPage/Sections/MainImage";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function UpdateDetailPage() {
+  const lists = useSelector((state) => state.list.list);
+  const [list, setlist] = useState([]);
+
   let listid = useParams().listid;
 
   useEffect(() => {
-    //useParams을 이용하여 id값 받아오기.
-    console.log("listid ", listid);
+    const targetlist = lists.find((list) => list.id == listid);
+    setlist(targetlist);
 
-    const endPoint = `http://localhost:7777/api/lists/${listid}`; // find all
+    console.log(
+      "🚀 ~ file: UpdateDetailPage.js:10 ~ UpdateDetailPage ~ list",
+      lists
+    );
 
-    axios
-      .get(endPoint)
-      .then((res) => {
-        console.log(res.data); // 변경된 데이터
-      })
-      .catch((err) => {
-        console.log("err is ", err);
-      });
+    settitle(list.title);
+    setdescription(list.description);
+    setimage(list.image);
   }, []);
 
-  const [list, setlist] = useState([]);
   const [title, settitle] = useState(list.title);
   const [description, setdescription] = useState(list.description);
   const [image, setimage] = useState(list.image);
@@ -34,7 +35,6 @@ function UpdateDetailPage() {
       .put(endPoint, data)
       .then((res) => {
         console.log(res.data);
-        setlist(res.data);
       })
       .catch((err) => {
         console.log("err is ", err);
